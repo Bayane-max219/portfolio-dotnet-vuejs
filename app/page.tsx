@@ -114,7 +114,7 @@ export default function Page() {
             B<span style={{ color: "var(--indigo-light)" }}>.</span>S
           </span>
           <div style={{ display: "flex", alignItems: "center", gap: "2.5rem" }}>
-            {["Stack", "Projets", "Formation", "Contact"].map((s) => (
+            {["Stack", "Projets", "Formation", "Documents", "Contact"].map((s) => (
               <a key={s} href={`#${s.toLowerCase()}`} className="nav-link">{s}</a>
             ))}
           </div>
@@ -330,9 +330,9 @@ export default function Page() {
 
           <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
             {[
-              { period: "Avr. 2024 → Juin 2024", company: "AccèsBanque Madagascar", role: "Stagiaire — Intégration systèmes" },
-              { period: "Nov. 2024 → Jan. 2025", company: "Randevteam Web Agency", role: "Webmaster · Développement Web & Données" },
-              { period: "Juin 2025 → Sep. 2025", company: "Teko Consulting (POTEKO)", role: "Développeur Web · Projets client" },
+              { period: "04/03/2024 → 03/06/2024", company: "AccèsBanque Madagascar", role: "Stagiaire Call Center" },
+              { period: "04/11/2024 → 04/01/2025", company: "Randevteam Web Agency", role: "Webmaster · Développement Web & Gestion de données" },
+              { period: "04/06/2025 → 04/09/2025", company: "Teko Consulting (POTEKO)", role: "Développeur Web" },
             ].map((s) => (
               <div key={s.company} style={{ background: "var(--navy-card)", border: "1px solid var(--navy-border)", padding: "1rem 1.25rem" }}>
                 <p style={{ fontSize: "0.7rem", color: "var(--indigo-light)", fontWeight: 700, letterSpacing: "0.08em", marginBottom: "0.25rem" }}>{s.period}</p>
@@ -341,6 +341,46 @@ export default function Page() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <hr style={{ border: "none", borderTop: "1px solid var(--navy-border)" }} />
+
+      {/* DOCUMENTS */}
+      <section style={{ padding: "5rem 1.5rem", maxWidth: "72rem", margin: "0 auto" }}>
+        <p className="section-label">Justificatifs</p>
+        <h2 style={{ fontWeight: 900, fontSize: "clamp(2rem, 4vw, 3rem)", marginBottom: "0.75rem" }}>Documents officiels</h2>
+        <p style={{ color: "var(--text-muted)", marginBottom: "3rem" }}>
+          Diplôme, relevés de notes et certificats de stage — tous vérifiables.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem" }}>
+          {[
+            { label: "Diplôme de Licence — ESMIA", sub: "Sciences et Technologies · Mention Bien · Jan 2026", file: "/docs/diplomeLicence.jpg", icon: "🎓" },
+            { label: "Relevé de notes S1", sub: "Licence 1 · 2023-2024 · Moyenne 14.42/20", file: "/docs/S1.jpg", icon: "📄" },
+            { label: "Relevé de notes S2", sub: "Licence 1 · 2023-2024 · PHP 20/20", file: "/docs/S2.jpg", icon: "📄" },
+            { label: "Relevé de notes S3", sub: "Licence 2 · .NET 19/20 · PostgreSQL 15.75/20", file: "/docs/S3.jpg", icon: "📄" },
+            { label: "Relevé de notes S4", sub: "Licence 2 · 2024-2025 · Moyenne 14.77/20", file: "/docs/S4.jpg", icon: "📄" },
+            { label: "Relevé de notes S5", sub: "Licence 3 · 2025 · Moyenne 13.07/20", file: "/docs/S5.jpg", icon: "📄" },
+            { label: "Relevé de notes S6", sub: "Licence 3 · Stage 17.60/20 · Moyenne 16.57/20", file: "/docs/S6.jpg", icon: "📄" },
+            { label: "Certificat de stage AccèsBanque", sub: "Call Center · 04/03/2024 → 03/06/2024", file: "/docs/certificat stage acces banque.jpg", icon: "🏦" },
+            { label: "Attestation de stage Randevteam", sub: "Webmaster · Dév. Web & Données · 2024-2025", file: "/docs/attestation stage ran dev.jpg", icon: "🌐" },
+            { label: "Certificat de stage Teko (POTEKO)", sub: "Développeur Web · 04/06/2025 → 04/09/2025", file: "/docs/caertifiact stage teko.jpg", icon: "💻" },
+            { label: "Attestation Informatique Bureautique", sub: "Help Education · Mention Très Bien · Fév 2025", file: "/docs/attestation informatique bureautique.jpg", icon: "🏅" },
+            { label: "Attestation Opérateur de Saisie", sub: "Help Education · Mention Bien · Fév 2025", file: "/docs/attestation operateur de saisie.jpg", icon: "🏅" },
+            { label: "Certificat Secrétaire Comptable", sub: "CFPM Madagascar · Mention Très Bien · 2023", file: "/docs/certificat compatble.jpg", icon: "📋" },
+          ].map((d) => (
+            <a key={d.label} href={d.file} target="_blank" rel="noopener noreferrer"
+              style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", background: "var(--navy-card)", border: "1px solid var(--navy-border)", padding: "1rem", textDecoration: "none", transition: "all 0.15s" }}
+              onMouseEnter={e => (e.currentTarget.style.borderColor = "var(--indigo)")}
+              onMouseLeave={e => (e.currentTarget.style.borderColor = "var(--navy-border)")}>
+              <span style={{ fontSize: "1.5rem", lineHeight: 1 }}>{d.icon}</span>
+              <div>
+                <p style={{ fontWeight: 700, fontSize: "0.85rem", color: "var(--text)", marginBottom: "0.2rem" }}>{d.label}</p>
+                <p style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>{d.sub}</p>
+                <p style={{ fontSize: "0.7rem", color: "var(--indigo-light)", marginTop: "0.3rem", fontWeight: 600 }}>Voir le document →</p>
+              </div>
+            </a>
+          ))}
         </div>
       </section>
 
