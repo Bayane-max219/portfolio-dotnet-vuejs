@@ -356,7 +356,7 @@ export default function Page() {
       <hr style={{ border: "none", borderTop: "1px solid var(--navy-border)" }} />
 
       {/* DOCUMENTS */}
-      <section style={{ padding: "5rem 1.5rem", maxWidth: "72rem", margin: "0 auto" }}>
+      <section id="documents" style={{ padding: "5rem 1.5rem", maxWidth: "72rem", margin: "0 auto" }}>
         <p className="section-label">Justificatifs</p>
         <h2 style={{ fontWeight: 900, fontSize: "clamp(2rem, 4vw, 3rem)", marginBottom: "0.75rem" }}>Documents officiels</h2>
         <p style={{ color: "var(--text-muted)", marginBottom: "3rem" }}>
