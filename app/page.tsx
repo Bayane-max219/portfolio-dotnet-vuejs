@@ -26,10 +26,10 @@ const projets = [
   },
   {
     num: "02",
-    name: "JVN LAB — Automatisation IA",
-    desc: "Développeur Full Stack & Automatisation IA chez JVN LAB (Paris, remote) — 3 agents IA en production : réponses Facebook automatisées, génération de posts multi-canaux, reporting hebdomadaire chaînés via n8n. Automation LinkedIn pour 3 pages entreprises via n8n + Claude API + Canva API + Buffer.",
-    tags: ["n8n", "Claude API", "Facebook Graph", "LinkedIn API", "Canva API", "Airtable", "Railway"],
-    highlight: ["n8n", "Claude API"],
+    name: "JVN LAB — Full Stack & Automatisation IA",
+    desc: "Développeur Full Stack & Automatisation IA chez JVN LAB (Paris, remote). Chantier 1 : 3 agents IA en production (réponses Facebook, posts multi-canaux, reporting) chaînés via n8n. Chantier 2 : automation LinkedIn pour 3 pages entreprises (n8n + Claude API + Canva API + Buffer) — pipeline 100% sans intervention humaine. Chantier 3 : plateforme de trading algorithmique multi-tenant avec backtesting EMA/RSI/Momentum, séparation stricte des contextes utilisateurs, chiffrement AES-256 des clés API, paper trading Binance — architecture FastAPI + PostgreSQL + Docker.",
+    tags: ["n8n", "Claude API", "FastAPI", "PostgreSQL", "Facebook Graph", "LinkedIn API", "Canva API", "Docker", "AES-256", "Railway"],
+    highlight: ["n8n", "Claude API", "FastAPI"],
     href: "https://github.com/Bayane-max219",
     note: "✅ En production",
   },
@@ -91,12 +91,15 @@ function SkillRow({ label, level }: { label: string; level: number }) {
 
 export default function Page() {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <div style={{ minHeight: "100vh", background: "var(--navy)", color: "var(--text)" }}>
@@ -105,7 +108,7 @@ export default function Page() {
       <nav style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
         transition: "all 0.2s",
-        background: scrolled ? "rgba(13,27,46,0.96)" : "transparent",
+        background: scrolled || menuOpen ? "rgba(13,27,46,0.98)" : "transparent",
         backdropFilter: scrolled ? "blur(8px)" : "none",
         borderBottom: scrolled ? "1px solid var(--navy-border)" : "none",
       }}>
@@ -113,14 +116,24 @@ export default function Page() {
           <span style={{ fontWeight: 900, fontSize: "1.1rem", letterSpacing: "-0.02em" }}>
             B<span style={{ color: "var(--indigo-light)" }}>.</span>S
           </span>
-          <div style={{ display: "flex", alignItems: "center", gap: "2.5rem" }}>
+          <div className="nav-links">
             {["Stack", "Projets", "Formation", "Documents", "Contact"].map((s) => (
               <a key={s} href={`#${s.toLowerCase()}`} className="nav-link">{s}</a>
             ))}
           </div>
-          <a href="/cv-bayane-singcol.pdf" download className="btn-primary" style={{ padding: "0.5rem 1.1rem", fontSize: "0.8rem" }}>
+          <a href="/cv-bayane-singcol.pdf" download className="btn-primary nav-cv-btn" style={{ padding: "0.5rem 1.1rem", fontSize: "0.8rem" }}>
             ↓ Télécharger CV
           </a>
+          <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
+            {menuOpen ? "✕" : "☰"}
+          </button>
+        </div>
+        {/* MOBILE MENU */}
+        <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
+          {["Stack", "Projets", "Formation", "Documents", "Contact"].map((s) => (
+            <a key={s} href={`#${s.toLowerCase()}`} onClick={closeMenu}>{s}</a>
+          ))}
+          <a href="/cv-bayane-singcol.pdf" download className="mobile-cv-btn" onClick={closeMenu}>↓ Télécharger CV</a>
         </div>
       </nav>
 
@@ -141,8 +154,8 @@ export default function Page() {
             </span>
           </div>
 
-          <div style={{ display: "flex", gap: "4rem", alignItems: "flex-start", flexWrap: "wrap" }}>
-            <div style={{ flex: 1, minWidth: "280px" }}>
+          <div className="hero-inner">
+            <div className="hero-text">
               <h1 style={{ fontWeight: 900, lineHeight: 1, marginBottom: "1.5rem", fontSize: "clamp(2.8rem, 8vw, 6rem)" }}>
                 Bayane Miguel
                 <br />
@@ -162,7 +175,7 @@ export default function Page() {
                 en validant systématiquement le code généré.
               </p>
 
-              <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+              <div className="hero-btns">
                 <a href="/cv-bayane-singcol.pdf" download className="btn-primary">
                   ↓ Télécharger mon CV
                 </a>
@@ -172,7 +185,7 @@ export default function Page() {
               </div>
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.5rem" }}>
+            <div className="hero-photo">
               <div style={{ position: "relative" }}>
                 <div style={{
                   position: "absolute", top: "0.5rem", left: "0.5rem",
@@ -197,11 +210,7 @@ export default function Page() {
                 </div>
               </div>
 
-              <div style={{
-                background: "var(--navy-card)", border: "1px solid var(--navy-border)",
-                padding: "1rem 1.5rem", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem",
-                textAlign: "center", minWidth: "200px",
-              }}>
+              <div style={{ background: "var(--navy-card)", border: "1px solid var(--navy-border)", padding: "1rem 1.5rem" }} className="stats-grid">
                 {[
                   { value: "19/20", label: ".NET académique" },
                   { value: "100%", label: "DevTrack demo" },
@@ -232,7 +241,7 @@ export default function Page() {
 
       {/* STACK */}
       <section id="stack" style={{ padding: "5rem 1.5rem", maxWidth: "72rem", margin: "0 auto" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "start" }}>
+        <div className="two-col">
           <div>
             <p className="section-label">Compétences</p>
             <h2 style={{ fontWeight: 900, fontSize: "clamp(2rem, 4vw, 3rem)", lineHeight: 1.1, marginBottom: "1.5rem" }}>
@@ -266,7 +275,7 @@ export default function Page() {
         <p style={{ color: "var(--text-muted)", marginBottom: "3rem" }}>
           Projets fullstack .NET, Vue.js et automatisation IA — code vérifiable sur GitHub.
         </p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "1.5rem" }}>
+        <div className="projects-grid">
           {projets.map((p) => (
             <div key={p.num} className="project-card">
               <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "1rem" }}>
@@ -303,7 +312,7 @@ export default function Page() {
       <section id="formation" style={{ padding: "5rem 1.5rem", maxWidth: "72rem", margin: "0 auto" }}>
         <p className="section-label">Académique</p>
         <h2 style={{ fontWeight: 900, fontSize: "clamp(2rem, 4vw, 3rem)", marginBottom: "3rem" }}>Formation</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
+        <div className="two-col-form">
           <div style={{ background: "var(--navy-card)", border: "1px solid var(--navy-border)", padding: "1.5rem" }}>
             <p className="section-label" style={{ marginBottom: "0.75rem" }}>Diplôme</p>
             <h3 style={{ fontWeight: 800, fontSize: "1rem", marginBottom: "0.5rem" }}>
@@ -353,7 +362,7 @@ export default function Page() {
         <p style={{ color: "var(--text-muted)", marginBottom: "3rem" }}>
           Diplôme, relevés de notes et certificats de stage — tous vérifiables.
         </p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem" }}>
+        <div className="docs-grid">
           {[
             { label: "Diplôme de Licence — ESMIA", sub: "Sciences et Technologies · Mention Bien · Jan 2026", file: "/docs/diplomeLicence.jpg", icon: "🎓" },
             { label: "Relevé de notes S1", sub: "Licence 1 · 2023-2024 · Moyenne 14.42/20", file: "/docs/S1.jpg", icon: "📄" },
@@ -389,7 +398,7 @@ export default function Page() {
       {/* CONTACT */}
       <section id="contact" style={{ padding: "5rem 1.5rem", maxWidth: "72rem", margin: "0 auto" }}>
         <div style={{ background: "var(--navy-card)", border: "1px solid var(--navy-border)", padding: "3rem 3.5rem" }}>
-          <div style={{ maxWidth: "36rem" }}>
+          <div style={{ maxWidth: "36rem" }} className="contact-box">
             <p className="section-label">Contact</p>
             <h2 style={{ fontWeight: 900, fontSize: "clamp(1.8rem, 4vw, 3rem)", lineHeight: 1.2, marginBottom: "1rem" }}>
               Un projet .NET ou Vue.js ?<br />
@@ -399,7 +408,7 @@ export default function Page() {
               Disponible pour missions freelance remote — Madagascar / Europe GMT+1.
               Réponse sous 24h.
             </p>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem", marginBottom: "2rem" }}>
+            <div className="three-col" style={{ marginBottom: "2rem" }}>
               {[
                 { label: "Email", value: "baymi312@gmail.com", href: "mailto:baymi312@gmail.com" },
                 { label: "Téléphone", value: "+261 34 83 498 86", href: "tel:+261348349886" },
@@ -416,7 +425,7 @@ export default function Page() {
                 </a>
               ))}
             </div>
-            <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+            <div className="hero-btns">
               <a href="mailto:baymi312@gmail.com" className="btn-primary">
                 Envoyer un message →
               </a>
