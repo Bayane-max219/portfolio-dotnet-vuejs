@@ -42,14 +42,6 @@ const projets = [
     href: "https://github.com/Bayane-max219/Gestion-de-stock",
     note: "✅ Vue.js 3",
   },
-  {
-    num: "04",
-    name: "Trading Crypto — Multi-tenant",
-    desc: "Plateforme de trading algorithmique avec backtesting EMA/RSI/Momentum — architecture multi-tenant avec séparation stricte des contextes utilisateurs, chiffrement AES-256 des clés API Binance, paper trading, conteneurisé Docker.",
-    tags: ["Python", "FastAPI", "PostgreSQL", "Docker", "Binance API", "pandas", "AES-256"],
-    highlight: [] as string[],
-    href: "https://github.com/Bayane-max219/Gestion_Portefeuil",
-  },
 ];
 
 const tools = [
